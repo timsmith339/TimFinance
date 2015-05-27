@@ -1,0 +1,25 @@
+<script src="../controllers/categorycontroller.js"></script>
+<script type="text/ng-template" id="category_tree_renderer">
+    <span ng-show="!data.InEdit">                       
+        <span ng-bind="data.Name" ng-click="edit(data)"></span>
+    <img src="../resources/images/add_blue.png" ng-click="add(data)">
+    <img src="../resources/images/cancel_red.png" ng-click="delete(data)" ng-show="data.Nodes.length == 0">
+    </span>
+    <span ng-show="data.InEdit">
+            <input type="text" ng-model="data.Name"/>
+            <img src="../resources/images/check_green.png" ng-click="post(data)" ng-show="data.Name.length > 0 && !data.Updating">
+            <img src="../resources/images/check_green.png" ng-click="put(data)" ng-show="data.Name.length > 0 && data.Updating">
+            <img src="../resources/images/cancel_red.png" ng-click="delete(data)" ng-show="!data.Updating">
+            <img src="../resources/images/cancel_red.png" ng-click="cancelEdit(data)" ng-show="data.Updating">
+        </span>
+    <ul>
+        <li ng-repeat="data in data.Nodes" ng-include="'category_tree_renderer'"></li>
+    </ul>
+</script>
+
+<div id="List5" ng-app="CategoriesModule">
+    WELL HELLO
+    <ul ng-controller="CategoriesController">
+        <li ng-repeat="data in tree" ng-include="'category_tree_renderer'"></li>
+    </ul>
+</div>
